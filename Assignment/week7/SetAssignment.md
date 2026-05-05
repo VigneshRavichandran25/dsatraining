@@ -1,166 +1,157 @@
-# 🧩 Programming Assignment: Java Maps Deep Dive
+# 🧩 Programming Assignment: Java Sets Deep Dive
 
 ## 📌 Objective
-This assignment is designed to help students practice **Java Map fundamentals**, understand the differences between **HashMap**, **TreeMap**, and **LinkedHashMap**, and use maps in simple real-world scenarios.
+This assignment is designed to help students practice **Java Set fundamentals**, understand the differences between **HashSet**, **LinkedHashSet**, and **TreeSet**, and use sets for simple real-world tasks.
 
 Students should demonstrate understanding of:
 
-### Map Fundamentals
-- Key-value pairs
-- Unique keys
-- Duplicate values allowed
-- Retrieval by key
+### Set Fundamentals
+- No duplicate elements
+- Implementation-dependent ordering
+- Basic set operations
+- Using the return value of `add()` and `remove()`
 
-### Map Implementations
-- `HashMap` for fast average lookup
-- `LinkedHashMap` for insertion-order preservation
-- `TreeMap` for sorted key order
+### Set Implementations
+- `HashSet` for fast average lookup
+- `LinkedHashSet` for insertion-order preservation
+- `TreeSet` for sorted order
 
 ### Practical Usage
-- Updating values for existing keys
-- Safe retrieval using `getOrDefault()`
-- Frequency counting
-- Sorted reporting
+- Duplicate removal
+- Ordered unique collections
+- Set union, intersection, and difference
+- Sorted ranking style output
 
 ---
 
-# 🔹 Question 1: Product Price Directory (HashMap Basics)
+# 🔹 Question 1: Unique Book ID Tracker (HashSet Basics)
 
-A small store wants to maintain a product-price directory. Each product name should map to exactly one price. If the same product is inserted again, its price should be updated.
+A library stores book IDs in a set. Some IDs may be entered multiple times by mistake. Build a small system using **HashSet** to track only unique book IDs.
 
 ### Requirements
 
 Create a class:
 
-`ProductPriceDirectory`
+`BookIdTracker`
 
 ---
 
 ### Implement the following methods:
 
-1. `addOrUpdateProduct(Map<String, Integer> prices, String product, int price)`
-   - Add a new product or update the price of an existing product.
-   - Return the old price if it existed, otherwise return `null`.
+1. `addBookId(Set<Integer> bookIds, int id)`
+   - Add the ID to the set.
+   - Return whether the ID was added successfully.
 
-2. `getPrice(Map<String, Integer> prices, String product)`
-   - Return the price of the product.
+2. `removeBookId(Set<Integer> bookIds, int id)`
+   - Remove the ID from the set.
+   - Return whether the ID existed.
 
-3. `getPriceOrDefault(Map<String, Integer> prices, String product, int defaultValue)`
-   - Return the price if present, otherwise return the default value.
+3. `checkBookId(Set<Integer> bookIds, int id)`
+   - Return `true` if the ID exists, otherwise `false`.
 
-4. `removeProduct(Map<String, Integer> prices, String product)`
-   - Remove the product and return the old price.
-
-5. `printDirectory(Map<String, Integer> prices)`
-   - Print all products with their prices.
+4. `printBookIds(Set<Integer> bookIds)`
+   - Print all IDs and the set size.
 
 ---
 
 ### Concepts to Demonstrate
 
-- **Unique keys**
-  - Show that inserting the same product name again updates the value instead of creating a duplicate key.
+- **No duplicates**
+  - Show that adding the same ID again does not increase the size.
 
-- **Return value of `put()`**
-  - Print the old value returned when a product price is updated.
+- **Return value of `add()`**
+  - Print whether each insert was a new value or a duplicate.
 
 - **Complexity Annotation**
   - Add comments above the methods for:
-    - `put()` → O(1) average
-    - `get()` → O(1) average
-    - `containsKey()` → O(1) average
+    - `add()` → O(1) average
+    - `contains()` → O(1) average
     - `remove()` → O(1) average
 
 - **Program to interface**
-  - Declare the variable as `Map<String, Integer>` and create it with `new HashMap<>()`.
-
-- **Safe retrieval**
-  - Add a short comment explaining why `getOrDefault()` is safer than directly unboxing a missing value.
+  - Declare the variable as `Set<Integer>` and create it with `new HashSet<>()`.
 
 ---
 
 ### In `main()`:
 
-- Create a product-price map.
-- Add at least 5 products.
-- Update the price of at least 2 existing products.
-- Get the price of one existing product.
-- Get the price of one missing product using `getOrDefault()`.
-- Remove one existing product and one missing product.
-- Print the final map and size.
+- Create a set of book IDs.
+- Add at least 6 IDs.
+- Intentionally repeat at least 2 IDs.
+- Check whether two IDs exist.
+- Remove one existing ID and one missing ID.
+- Print the final set and size.
 
 ---
 
-# 🔹 Question 2: Classroom Marks Register (LinkedHashMap + Iteration)
+# 🔹 Question 2: Workshop Registration Manager (LinkedHashSet + Set Operations)
 
-A teacher stores student marks in the order they were entered. Build a marks register using **LinkedHashMap** so that insertion order is preserved.
+A college workshop stores participant names in the order they registered. Duplicate names should not be stored. The system must also compare two workshop groups.
 
 ### Requirements
 
 Create a class:
 
-`MarksRegister`
+`WorkshopRegistration`
 
 ---
 
 ### Implement the following methods:
 
-1. `addStudentMark(LinkedHashMap<String, Integer> marks, String student, int score)`
-   - Add or update a student's mark.
+1. `registerParticipant(LinkedHashSet<String> participants, String name)`
+   - Add a participant while preserving insertion order.
 
-2. `printUsingEntrySet(Map<String, Integer> marks)`
-   - Print all entries using `entrySet()`.
+2. `printParticipants(LinkedHashSet<String> participants)`
+   - Print participants in registration order.
 
-3. `printUsingForEach(Map<String, Integer> marks)`
-   - Print all entries using `forEach()`.
+3. `getUnion(Set<String> a, Set<String> b)`
+   - Return a new set containing all unique names from both sets.
 
-4. `containsStudent(Map<String, Integer> marks, String student)`
-   - Return whether the student exists in the register.
+4. `getIntersection(Set<String> a, Set<String> b)`
+   - Return a new set containing only names present in both sets.
 
-5. `containsScore(Map<String, Integer> marks, int score)`
-   - Return whether any student has that score.
+5. `getDifference(Set<String> a, Set<String> b)`
+   - Return names present in `a` but not in `b`.
 
 ---
 
 ### Concepts to Demonstrate
 
-- **LinkedHashMap behavior**
-  - Add a comment explaining that `LinkedHashMap` preserves insertion order.
+- **LinkedHashSet behavior**
+  - Add a comment explaining that `LinkedHashSet` keeps insertion order while still preventing duplicates.
 
-- **Key vs value lookup**
-  - Add a comment explaining:
-    - `containsKey()` is efficient
-    - `containsValue()` is O(n)
+- **Set operations**
+  - Use copy sets and methods like `addAll()`, `retainAll()`, and `removeAll()`.
 
-- **Efficient iteration**
-  - Add a short comment explaining why `entrySet()` is usually better than iterating with `keySet()` and then calling `get()`.
+- **Complexity awareness**
+  - Add short comments explaining that the main operations are efficient because hashing is used internally.
 
-- **Output table**
+- **Comparison output**
   - Print a table like:
 
-  | Student | Mark |
-  |---------|------|
-  | ... | ... |
+  | Operation | Result |
+  |----------|--------|
+  | Workshop A | ... |
+  | Workshop B | ... |
+  | Union | ... |
+  | Intersection | ... |
+  | Difference (A-B) | ... |
 
 ---
 
 ### In `main()`:
 
-- Create a `LinkedHashMap<String, Integer>`.
-- Add at least 5 students with marks.
-- Update one student's mark.
-- Print the register using both `entrySet()` and `forEach()`.
-- Check for:
-  - one existing student
-  - one missing student
-  - one existing score
-  - one missing score
+- Create two workshop registration sets.
+- Add at least 5 names to each set.
+- Include some repeated names across both groups.
+- Print both groups.
+- Print the union, intersection, and difference.
 
 ---
 
-# 🔹 Question 3: Word Frequency Reporter (HashMap + TreeMap - Slightly Medium)
+# 🔹 Question 3: Game Score Leaderboard (TreeSet - Slightly Medium)
 
-A document processor needs to count how many times each word appears in a sentence. Build a frequency report and then print the result in sorted key order.
+A game displays scores in sorted order. You need to maintain a leaderboard of unique scores and print them from lowest to highest.
 
 This question is slightly more advanced than the first two.
 
@@ -168,52 +159,56 @@ This question is slightly more advanced than the first two.
 
 Create a class:
 
-`WordFrequencyReporter`
+`GameLeaderboard`
 
 ---
 
 ### Implement the following methods:
 
-1. `countWords(String[] words)`
-   - Return a `HashMap<String, Integer>` containing word frequencies.
+1. `addScore(TreeSet<Integer> scores, int score)`
+   - Add a score to the leaderboard.
 
-2. `countWordsUsingMerge(String[] words)`
-   - Return a `HashMap<String, Integer>` using `merge()` for counting.
+2. `printScores(TreeSet<Integer> scores)`
+   - Print all unique scores in sorted order.
 
-3. `sortedReport(Map<String, Integer> freq)`
-   - Return a `TreeMap<String, Integer>` so the output is sorted by word.
+3. `printHighestScore(TreeSet<Integer> scores)`
+   - Print the highest score.
 
-4. `printReport(Map<String, Integer> freq)`
-   - Print each word and its count.
+4. `printLowestScore(TreeSet<Integer> scores)`
+   - Print the lowest score.
+
+5. `printScoresAbove(TreeSet<Integer> scores, int target)`
+   - Print all scores strictly greater than the target.
 
 ---
 
 ### Concepts to Demonstrate
 
-- **Frequency counting**
-  - Add comments explaining how repeated keys are used to update counts.
-
-- **Java 8 method usage**
-  - Use `merge()` in one method.
-
-- **Why TreeMap here?**
-  - Add a short comment explaining why `TreeMap` is useful when sorted key output is required.
+- **TreeSet sorting**
+  - Add a comment explaining that `TreeSet` stores elements in sorted order.
 
 - **Complexity Annotation**
   - Add comments above the methods for:
-    - `HashMap` insert/update → O(1) average
-    - `TreeMap` insert → O(log n)
+    - `add()` → O(log n)
+    - `contains()` → O(log n)
+    - `first()` / `last()` → O(log n)
+
+- **Why TreeSet here?**
+  - Add a short comment explaining why `TreeSet` is more suitable than `HashSet` when sorted output is required.
+
+- **Leaderboard meaning**
+  - Since duplicates are not stored, equal scores should appear only once.
 
 ---
 
 ### In `main()`:
 
-- Use a word array such as:
-  - `{"java", "map", "java", "set", "list", "map", "java"}`
-- Build the frequency map using both approaches.
-- Print the unsorted frequency map.
-- Convert it to a sorted `TreeMap` report.
-- Print the sorted report clearly.
+- Create a `TreeSet<Integer>` for scores.
+- Add at least 8 scores.
+- Intentionally repeat at least 2 scores.
+- Print all scores.
+- Print the lowest and highest score.
+- Print all scores above `70`.
 
 ---
 
@@ -224,11 +219,10 @@ Students must submit:
 - Complete source code (`.java` files)
 - Proper class and method structure
 - Code comments explaining:
-  - how maps store key-value pairs
-  - where `HashMap`, `LinkedHashMap`, and `TreeMap` should be used
-  - why `getOrDefault()` and `merge()` are useful
+  - how sets prevent duplicates
+  - where `HashSet`, `LinkedHashSet`, and `TreeSet` should be used
   - the time complexity of the main operations
-- Output demonstrating all required operations and reports
+- Output demonstrating all required tasks and results
 
 ---
 
@@ -236,9 +230,9 @@ Students must submit:
 
 | Criteria | Marks |
 |----------|-------|
-| Correct use of `HashMap` and update behavior (Q1) | 35 |
-| Correct use of `LinkedHashMap` and iteration methods (Q2) | 30 |
-| Correct frequency counting and sorted reporting (Q3) | 25 |
+| Correct use of `HashSet` and duplicate handling (Q1) | 35 |
+| Correct use of `LinkedHashSet` and set operations (Q2) | 35 |
+| Correct use of `TreeSet` and sorted leaderboard logic (Q3) | 20 |
 | Code comments, readability, and structure | 10 |
 
 Total: **100 Marks**
@@ -249,8 +243,8 @@ Total: **100 Marks**
 
 Choose **one** of the following enhancements:
 
-1. **Session cache mini-demo** — use `LinkedHashMap` to store recent user sessions and explain why insertion order or access order can be useful.
+1. **Custom object in HashSet** — create a small `Student` class or `record` and show why correct `equals()` and `hashCode()` are needed to prevent duplicates.
 
-2. **Anagram checker** — use a map to count character frequency in two strings and decide whether they are anagrams.
+2. **Recent search history** — use `LinkedHashSet` to store recent unique search terms while preserving insertion order.
 
-3. **Grouping data** — create a map from department name to a list of employee names using `computeIfAbsent()`.
+3. **Top scorer filter** — extend the leaderboard to print scores within a range, such as 60 to 90.
